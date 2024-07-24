@@ -1,7 +1,6 @@
-import { ThemeProvider } from '@/components/theme-provider'
-import { LoginForm } from './pages/login'
 import { useState } from 'react'
-import { Authentication } from './interfaces/authentication'
+import { Authentication } from '@/interfaces/authentication'
+import Navigation from '@/components/navigation'
 
 function App() {
   const auth = useState<Authentication>({
@@ -10,9 +9,7 @@ function App() {
   })
   if((auth))
     return (
-      <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-        <LoginForm></LoginForm>
-      </ThemeProvider>
+      <Navigation></Navigation>
     )
 }
 

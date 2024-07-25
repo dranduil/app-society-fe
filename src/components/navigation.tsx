@@ -7,7 +7,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 export default function Navigation() {
     return (
         <Router>
-            <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+            <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
                 <TooltipProvider>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />

@@ -24,6 +24,8 @@ export default function Navigation() {
                         <Route path="/profile" element={<Dashboard />} />
                         <Route path="/profile/cards" element={<Dashboard />} />
                         <Route path="/jobs" element={<Dashboard />} />
+                        <Route path="/coming-soon" element={<Dashboard />} />
+                        <Route path="/page-not-found" element={<Dashboard />} />
                     </Routes>
                 </TooltipProvider>
             </ThemeProvider>

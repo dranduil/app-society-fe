@@ -12,6 +12,18 @@ export default function Navigation() {
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/dashboard/{id}" element={<Dashboard />} />
+                        <Route path="/events" element={<Dashboard />} />
+                        <Route path="/events/{id}" element={<Dashboard />} />
+                        <Route path="/courses" element={<Dashboard />} />
+                        <Route path="/courses/{id}" element={<Dashboard />} />
+                        <Route path="/properties" element={<Dashboard />} />
+                        <Route path="/properties/{id}" element={<Dashboard />} />
+                        <Route path="/my-property-reservation" element={<Dashboard />} />
+                        <Route path="/participations" element={<Dashboard />} />
+                        <Route path="/profile" element={<Dashboard />} />
+                        <Route path="/profile/cards" element={<Dashboard />} />
+                        <Route path="/jobs" element={<Dashboard />} />
                     </Routes>
                 </TooltipProvider>
             </ThemeProvider>

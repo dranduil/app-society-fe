@@ -11,8 +11,7 @@ export default function Navigation() {
                 <TooltipProvider>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/dashboard/{id}" element={<Dashboard />} />
+                        <Route path="/" element={<Dashboard />} />
                         <Route path="/events" element={<Dashboard />} />
                         <Route path="/events/{id}" element={<Dashboard />} />
                         <Route path="/courses" element={<Dashboard />} />

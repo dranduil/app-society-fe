@@ -1,7 +1,6 @@
 import {
 DropdownMenu,
 DropdownMenuContent,
-DropdownMenuItem,
 DropdownMenuLabel,
 DropdownMenuSeparator,
 DropdownMenuTrigger,
@@ -17,10 +16,6 @@ import {
   } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "./mode-toggle"
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
-import React from "react"
-
-type Checked = DropdownMenuCheckboxItemProps["checked"]
 
 export default function Header(){
 

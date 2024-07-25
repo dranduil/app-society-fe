@@ -2,8 +2,14 @@ import { Link } from 'react-router-dom'; // Adjust according to your router setu
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useNavigate } from 'react-router-dom';
 
 export function LoginPage() {
+  const handleSubmit = () => {
+    console.log('hola')
+    const navigate = useNavigate()
+    navigate('/dashboard')
+  }
   return (
     <div className="h-screen w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="flex items-center justify-center py-12">
@@ -36,7 +42,7 @@ export function LoginPage() {
               </div>
               <Input id="password" type="password" required />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" onClick={handleSubmit}>
               Login
             </Button>
             <Button variant="outline" className="w-full">

@@ -3,6 +3,14 @@ import { LoginPage } from "@/pages/login";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ProfilePage from "@/pages/profile";
+import EventsPage from "@/pages/events";
+import CoursesPage from "@/pages/courses";
+import PropertiesPage from "@/pages/properties";
+import ReservationsPage from "@/pages/reservations";
+import JobsPage from "@/pages/jobs";
+import CoomingSoonPage from "@/pages/coming-soon";
+import PageNotFoundPage from "@/pages/page-not-found";
 
 export default function Navigation() {
     return (
@@ -12,19 +20,19 @@ export default function Navigation() {
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/" element={<Dashboard />} />
-                        <Route path="/events" element={<Dashboard />} />
+                        <Route path="/events" element={<EventsPage />} />
                         <Route path="/events/{id}" element={<Dashboard />} />
-                        <Route path="/courses" element={<Dashboard />} />
-                        <Route path="/courses/{id}" element={<Dashboard />} />
-                        <Route path="/properties" element={<Dashboard />} />
-                        <Route path="/properties/{id}" element={<Dashboard />} />
-                        <Route path="/my-property-reservation" element={<Dashboard />} />
+                        <Route path="/courses" element={<CoursesPage />} />
+                        <Route path="/courses/{id}" element={<CoursesPage />} />
+                        <Route path="/properties" element={<PropertiesPage />} />
+                        <Route path="/properties/{id}" element={<PropertiesPage />} />
+                        <Route path="/my-property-reservation" element={<ReservationsPage />} />
                         <Route path="/participations" element={<Dashboard />} />
-                        <Route path="/profile" element={<Dashboard />} />
+                        <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/profile/cards" element={<Dashboard />} />
-                        <Route path="/jobs" element={<Dashboard />} />
-                        <Route path="/coming-soon" element={<Dashboard />} />
-                        <Route path="/page-not-found" element={<Dashboard />} />
+                        <Route path="/jobs" element={<JobsPage />} />
+                        <Route path="/coming-soon" element={<CoomingSoonPage />} />
+                        <Route path="/page-not-found" element={<PageNotFoundPage />} />
                     </Routes>
                 </TooltipProvider>
             </ThemeProvider>

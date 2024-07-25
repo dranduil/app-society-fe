@@ -16,8 +16,14 @@ import {
     Search,
   } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ModeToggle } from "./mode-toggle"
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
+import React from "react"
+
+type Checked = DropdownMenuCheckboxItemProps["checked"]
 
 export default function Header(){
+
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -25,16 +31,16 @@ export default function Header(){
             <Package2 className="h-6 w-6" />
             <span className="sr-only">Dashboard</span>
           </Link>
-          <Link to="#" className="text-foreground transition-colors hover:text-foreground">
+          <Link to="/courses" className="text-foreground transition-colors hover:text-foreground">
             Courses
           </Link>
-          <Link to="#" className="text-foreground transition-colors hover:text-foreground">
+          <Link to="/events" className="text-foreground transition-colors hover:text-foreground">
             Events
           </Link>
-          <Link to="#" className="text-foreground transition-colors hover:text-foreground">
+          <Link to="/properties" className="text-foreground transition-colors hover:text-foreground">
             Properties
           </Link>
-          <Link to="#" className="text-foreground transition-colors hover:text-foreground">
+          <Link to="/jobs" className="text-foreground transition-colors hover:text-foreground">
             jobs
           </Link>
         </nav>
@@ -80,6 +86,7 @@ export default function Header(){
               />
             </div>
           </form>
+          <ModeToggle></ModeToggle>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
@@ -88,12 +95,20 @@ export default function Header(){
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <Link to='/profile'>
+                <DropdownMenuLabel >My Account</DropdownMenuLabel>
+              </Link>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
+              <Link to='#'>
+                <DropdownMenuLabel>Settings</DropdownMenuLabel>
+              </Link>
+              <Link to='#'>
+                <DropdownMenuLabel>Support</DropdownMenuLabel>
+              </Link>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <Link to='/login'>
+                <DropdownMenuLabel>Logout</DropdownMenuLabel>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

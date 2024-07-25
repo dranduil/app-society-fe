@@ -55,16 +55,16 @@ export default function Header(){
               <Link to="/" className="hover:text-foreground">
                 Dashboard
               </Link>
-              <Link to="/" className="text-muted-foreground hover:text-foreground">
+              <Link to="/courses" className="text-muted-foreground hover:text-foreground">
                 Courses
               </Link>
-              <Link to="/" className="text-muted-foreground hover:text-foreground">
+              <Link to="/events" className="text-muted-foreground hover:text-foreground">
                 Events
               </Link>
-              <Link to="/" className="text-muted-foreground hover:text-foreground">
+              <Link to="/properties" className="text-muted-foreground hover:text-foreground">
                 Properties
               </Link>
-              <Link to="/" className="text-muted-foreground hover:text-foreground">
+              <Link to="/jobs" className="text-muted-foreground hover:text-foreground">
                 Jobs
               </Link>
             </nav>

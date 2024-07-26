@@ -28,6 +28,7 @@ export const EventProvider = ({ children }: { children: ReactNode }) => {
 
   const filterEvents = (criteria: any) => {
     // Implementa la logica di filtro qui
+    return criteria
   };
 
   return (

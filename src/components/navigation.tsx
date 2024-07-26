@@ -2,7 +2,8 @@ import { Dashboard } from "@/pages/dashboard";
 import { LoginPage } from "@/pages/login";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Authentication } from "@/interfaces/authentication";
 import ProfilePage from "@/pages/profile";
 import EventsPage from "@/pages/events";
 import CoursesPage from "@/pages/courses";
@@ -12,6 +13,17 @@ import JobsPage from "@/pages/jobs";
 import CoomingSoonPage from "@/pages/coming-soon";
 import PageNotFoundPage from "@/pages/page-not-found";
 
+
+
+const PrivateRoutes = () => {
+    const auth:Authentication = {
+        token: null,
+        refreshToken: null
+    }
+    return auth.token ? <Outlet /> :
+    <Navigate to="/login" />
+}
+
 export default function Navigation() {
     return (
         <Router>
@@ -19,20 +31,22 @@ export default function Navigation() {
                 <TooltipProvider>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/events" element={<EventsPage />} />
-                        <Route path="/events/{id}" element={<Dashboard />} />
-                        <Route path="/courses" element={<CoursesPage />} />
-                        <Route path="/courses/{id}" element={<CoursesPage />} />
-                        <Route path="/properties" element={<PropertiesPage />} />
-                        <Route path="/properties/{id}" element={<PropertiesPage />} />
-                        <Route path="/my-property-reservation" element={<ReservationsPage />} />
-                        <Route path="/participations" element={<Dashboard />} />
-                        <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/profile/cards" element={<Dashboard />} />
-                        <Route path="/jobs" element={<JobsPage />} />
                         <Route path="/coming-soon" element={<CoomingSoonPage />} />
                         <Route path="/page-not-found" element={<PageNotFoundPage />} />
+                        <Route element={<PrivateRoutes />}>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/events" element={<EventsPage />} />
+                            <Route path="/events/{id}" element={<Dashboard />} />
+                            <Route path="/courses" element={<CoursesPage />} />
+                            <Route path="/courses/{id}" element={<CoursesPage />} />
+                            <Route path="/properties" element={<PropertiesPage />} />
+                            <Route path="/properties/{id}" element={<PropertiesPage />} />
+                            <Route path="/my-property-reservation" element={<ReservationsPage />} />
+                            <Route path="/participations" element={<Dashboard />} />
+                            <Route path="/profile" element={<ProfilePage />} />
+                            <Route path="/profile/cards" element={<Dashboard />} />
+                            <Route path="/jobs" element={<JobsPage />} />
+                        </Route>
                     </Routes>
                 </TooltipProvider>
             </ThemeProvider>

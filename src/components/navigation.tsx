@@ -13,6 +13,7 @@ import JobsPage from "@/pages/jobs";
 import CoomingSoonPage from "@/pages/coming-soon";
 import PageNotFoundPage from "@/pages/page-not-found";
 import Helmet from "./helmet";
+import { HelmetProvider } from "react-helmet-async";
 
 
 
@@ -29,8 +30,10 @@ export default function Navigation() {
     return (
         <Router>
             <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
-                <TooltipProvider>
+                <HelmetProvider>
                     <Helmet title="Flexa" description="flex" keywords="asd"/>
+                </HelmetProvider>
+                <TooltipProvider>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/coming-soon" element={<CoomingSoonPage />} />

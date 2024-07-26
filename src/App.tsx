@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Authentication } from '@/interfaces/authentication'
 import Navigation from '@/components/navigation'
 import { Provider } from 'react-redux'
-import store  from '@/store/store'
+import { store }  from '@/store/index'
 
 function App() {
   const auth = useState<Authentication>({

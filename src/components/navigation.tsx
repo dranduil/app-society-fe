@@ -12,6 +12,7 @@ import ReservationsPage from "@/pages/reservations";
 import JobsPage from "@/pages/jobs";
 import CoomingSoonPage from "@/pages/coming-soon";
 import PageNotFoundPage from "@/pages/page-not-found";
+import Helmet from "./helmet";
 
 
 
@@ -29,6 +30,7 @@ export default function Navigation() {
         <Router>
             <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
                 <TooltipProvider>
+                    <Helmet title="Flexa" description="flex" keywords="asd"/>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/coming-soon" element={<CoomingSoonPage />} />

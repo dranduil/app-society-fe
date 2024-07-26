@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Authentication } from '@/interfaces/authentication'
 import Navigation from '@/components/navigation'
-
+import { Provider } from 'react-redux'
+import store  from '@/store/store'
 
 function App() {
   const auth = useState<Authentication>({
@@ -10,7 +11,9 @@ function App() {
   })
   if((auth))
     return (
-      <Navigation></Navigation>
+      <Provider store={store}>
+        <Navigation></Navigation>
+      </Provider>
     )
 }
 

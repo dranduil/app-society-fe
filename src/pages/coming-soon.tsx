@@ -1,4 +1,4 @@
-export default function CoomingSoonPage() {
+export default function ComingSoonPage() {
     return (
         <></>
     )

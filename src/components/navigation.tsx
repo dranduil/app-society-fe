@@ -10,10 +10,11 @@ import CoursesPage from "@/pages/courses";
 import PropertiesPage from "@/pages/properties";
 import ReservationsPage from "@/pages/reservations";
 import JobsPage from "@/pages/jobs";
-import CoomingSoonPage from "@/pages/coming-soon";
 import PageNotFoundPage from "@/pages/page-not-found";
 import Helmet from "./helmet";
 import { HelmetProvider } from "react-helmet-async";
+import ComingSoonPage from "@/pages/coming-soon";
+import { Signup } from "@/pages/signup";
 
 
 
@@ -36,7 +37,8 @@ export default function Navigation() {
                 <TooltipProvider>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
-                        <Route path="/coming-soon" element={<CoomingSoonPage />} />
+                        <Route path="/sign-up" element={<Signup />} />
+                        <Route path="/coming-soon" element={<ComingSoonPage />} />
                         <Route path="/page-not-found" element={<PageNotFoundPage />} />
                         <Route element={<PrivateRoutes />}>
                             <Route path="/" element={<Dashboard />} />

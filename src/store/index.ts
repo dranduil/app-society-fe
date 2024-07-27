@@ -31,7 +31,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 // Subscribe to store to handle cookies
 appStore.subscribe(() => {
   const state = appStore.getState().auth;
-  if (state.token) {
+  if (state.token && state.refreshToken) {
     Cookies.set('token', state.token, { expires: 60 });
     Cookies.set('refreshToken', state.refreshToken, { expires: 60 });
   } else {

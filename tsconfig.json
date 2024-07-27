@@ -10,6 +10,7 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["js-cookie"],
     "paths": {
       "@/*": ["./src/*"]
     }

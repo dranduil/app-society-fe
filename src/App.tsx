@@ -8,8 +8,8 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const token:string = Cookies.get('token');
-    const refreshToken:string = Cookies.get('refreshToken');
+    const token:string|undefined = Cookies.get('token');
+    const refreshToken:string|undefined = Cookies.get('refreshToken');
     if (token && refreshToken) {
       dispatch(
         checkAuth({ token, refreshToken })

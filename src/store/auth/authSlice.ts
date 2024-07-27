@@ -5,8 +5,8 @@ import Cookies from 'js-cookie';
 
 
 interface AuthState {
-  token: string | null;
-  refreshToken: string | null;
+  token: string | undefined | null;
+  refreshToken: string | undefined | null;
   loading: boolean;
   error: string | null;
   isAuthenticated: boolean;
@@ -24,7 +24,7 @@ const initialState: AuthState = {
 
 export const checkAuth = createAsyncThunk(
   'auth/checkAuth',
-  async (tokens: { token: string; refreshToken: string }) => {
+  async (tokens: { token: string; refreshToken: string}) => {
     return tokens;
   }
 );

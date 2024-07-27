@@ -30,7 +30,7 @@ export default function Navigation() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/sign-up" element={<Signup />} />
                         <Route path="/coming-soon" element={<ComingSoonPage />} />
-                        <Route path="/page-not-found" element={<PageNotFoundPage />} />
+                        <Route path="*" element={<PageNotFoundPage />} />
                         <Route element={<PrivateRoutes />}>
                             <Route path="/" element={<Dashboard />} />
                             <Route path="/events" element={<EventsPage />} />

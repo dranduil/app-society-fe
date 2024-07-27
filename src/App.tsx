@@ -1,20 +1,25 @@
-import { useState } from 'react'
-import { Authentication } from '@/interfaces/authentication'
-import Navigation from '@/components/navigation'
-import { Provider } from 'react-redux'
-import { store }  from '@/store/index'
+import  { useEffect } from 'react';
+import {  useAppDispatch } from '@/store';
+import Navigation from '@/components/navigation';
+import { checkAuth } from '@/store/auth/authSlice';
+import Cookies from 'js-cookie';
 
 function App() {
-  const auth = useState<Authentication>({
-    token: '',
-    refreshToken: ''
-  })
-  if((auth))
-    return (
-      <Provider store={store}>
-        <Navigation></Navigation>
-      </Provider>
-    )
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const token:string = Cookies.get('token');
+    const refreshToken:string = Cookies.get('refreshToken');
+    if (token && refreshToken) {
+      dispatch(
+        checkAuth({ token, refreshToken })
+      );
+    }
+  }, [dispatch]);
+
+  return (
+      <Navigation />
+  );
 }
 
-export default App
+export default App;

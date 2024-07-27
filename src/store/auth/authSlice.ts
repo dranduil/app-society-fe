@@ -1,20 +1,33 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '@/api/apiClient';
 import { AxiosError } from 'axios';
+import Cookies from 'js-cookie';
+
 
 interface AuthState {
   token: string | null;
   refreshToken: string | null;
   loading: boolean;
   error: string | null;
+  isAuthenticated: boolean;
 }
 
+const token = Cookies.get('token');
+const refreshToken = Cookies.get('refreshToken');
 const initialState: AuthState = {
-  token: null,
-  refreshToken: null,
+  token: token || null,
+  refreshToken: refreshToken || null,
   loading: false,
   error: null,
+  isAuthenticated: !!token,
 };
+
+export const checkAuth = createAsyncThunk(
+  'auth/checkAuth',
+  async (tokens: { token: string; refreshToken: string }) => {
+    return tokens;
+  }
+);
 
 export interface ExceptionError {
     error:string,
@@ -38,9 +51,9 @@ export const loginUser = createAsyncThunk(
 
 export const signupUser = createAsyncThunk(
   'auth/signup',
-  async (credentials: { email: string; password: string }, { rejectWithValue }) => {
+  async (credentials: { name:string, surname:string, email: string; password: string }, { rejectWithValue }) => {
     try {
-      const response = await apiClient.post('/api/signup', credentials);
+      const response = await apiClient.post('/api/sign-up', credentials);
       return response.data;
     } catch (error: unknown) {
       if( error instanceof AxiosError)
@@ -67,7 +80,8 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.token = action.payload.token;
+        console.log(action.payload)
+        state.token = action.payload.access_token;
         state.refreshToken = action.payload.refreshToken;
         state.loading = false;
       })
@@ -87,6 +101,12 @@ const authSlice = createSlice({
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(checkAuth.fulfilled, (state, action: PayloadAction<{ token: string; refreshToken: string }>) => {
+        const { token, refreshToken } = action.payload;
+        state.token = token;
+        state.refreshToken = refreshToken;
+        state.isAuthenticated = !!token;
       });
   }
 });

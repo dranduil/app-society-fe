@@ -1,15 +1,40 @@
-import { Link } from 'react-router-dom'; // Adjust according to your router setup
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, RootState } from "@/store";
+import { loginUser } from '@/store/auth/authSlice'
+import {  useSelector } from 'react-redux';
+
 
 export function LoginPage() {
-  const handleSubmit = () => {
-    console.log('hola')
-    const navigate = useNavigate()
-    navigate('/dashboard')
-  }
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { loading, error } = useSelector((state: RootState) => state.auth);
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  
+  //   }
+  // }, [isAuthenticated, navigate]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would typically handle the login logic, e.g., dispatch a login action
+    dispatch(
+      loginUser(
+        {
+          email:email,
+          password:password
+        }
+      )
+    )
+  };
+
   return (
     <div className="h-screen w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="flex items-center justify-center py-12">
@@ -20,13 +45,15 @@ export function LoginPage() {
               Enter your email below to login to your account
             </p>
           </div>
-          <div className="grid gap-4">
+          <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="m@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -40,15 +67,22 @@ export function LoginPage() {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </div>
-            <Button type="submit" className="w-full" onClick={handleSubmit}>
-              Login
+            <Button type="submit" className="w-full">
+            {loading ? 'Login in...' : 'Login'}
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" disabled>
               Login with Google
             </Button>
-          </div>
+          </form>
+          {error && <p className="text-red-500 text-center">{error}</p>}
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{' '}
             <Link to="/sign-up" className="underline">

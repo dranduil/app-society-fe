@@ -15,17 +15,8 @@ import Helmet from "./helmet";
 import { HelmetProvider } from "react-helmet-async";
 import ComingSoonPage from "@/pages/coming-soon";
 import { Signup } from "@/pages/signup";
+import PrivateRoutes from "./privateRoutes";
 
-
-
-const PrivateRoutes = () => {
-    const auth:Authentication = {
-        token: null,
-        refreshToken: null
-    }
-    return auth.token ? <Outlet /> :
-    <Navigate to="/login" />
-}
 
 export default function Navigation() {
     return (

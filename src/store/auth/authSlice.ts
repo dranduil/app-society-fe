@@ -5,15 +5,16 @@ import Cookies from 'js-cookie';
 
 
 interface AuthState {
-  token: string | undefined | null;
-  refreshToken: string | undefined | null;
+  token: string | null;
+  refreshToken: string | null;
   loading: boolean;
   error: string | null;
   isAuthenticated: boolean;
 }
 
-const token = Cookies.get('token');
-const refreshToken = Cookies.get('refreshToken');
+const token = Cookies.get('token') || null;
+const refreshToken = Cookies.get('refreshToken') || null;
+
 const initialState: AuthState = {
   token: token || null,
   refreshToken: refreshToken || null,
@@ -64,17 +65,36 @@ export const signupUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  'auth/logout',
+  async (credential, {rejectWithValue}) => {
+    try{
+      const response = await apiClient.post('/api/logout', credential);
+      return response.data
+    } catch (error: unknown)
+    {
+      if( error instanceof AxiosError)
+        {
+          return rejectWithValue(error.response?.data.message)
+        }
+    }
+  }
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state) => {
-      state.token = null;
-      state.refreshToken = null;
-    }
+    
   },
   extraReducers: (builder) => {
     builder
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.token = null;
+        state.refreshToken = null;
+        Cookies.remove('token')
+        Cookies.remove('refreshToken')
+      })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -82,8 +102,10 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         console.log(action.payload)
         state.token = action.payload.access_token;
-        state.refreshToken = action.payload.refreshToken;
+        state.refreshToken = action.payload.refresh_token;
         state.loading = false;
+        Cookies.set('token', state.token as string, { expires: 60, path: '/' });
+        Cookies.set('refreshToken', state.refreshToken as string, { expires: 60, path: '/' });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -110,7 +132,5 @@ const authSlice = createSlice({
       });
   }
 });
-
-export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

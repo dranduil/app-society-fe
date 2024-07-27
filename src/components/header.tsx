@@ -1,13 +1,14 @@
 import {
 DropdownMenu,
 DropdownMenuContent,
+DropdownMenuItem,
 DropdownMenuLabel,
 DropdownMenuSeparator,
 DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Link} from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
 import {
     CircleUser,
     Menu,
@@ -16,8 +17,19 @@ import {
   } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "./mode-toggle"
+import { useAppDispatch } from '@/store';
+import { logoutUser } from "@/store/auth/authSlice"
 
 export default function Header(){
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const handleLogout = async () => {
+    const resultAction = await dispatch(logoutUser());
+    console.log(resultAction)
+    if(resultAction.payload) {
+      navigate('/login')
+    }
+  }
 
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -101,9 +113,7 @@ export default function Header(){
                 <DropdownMenuLabel>Support</DropdownMenuLabel>
               </Link>
               <DropdownMenuSeparator />
-              <Link to='/login'>
-                <DropdownMenuLabel>Logout</DropdownMenuLabel>
-              </Link>
+              <DropdownMenuItem style={{cursor: 'pointer'}} onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

@@ -1,6 +1,6 @@
 import { SkeletonCard } from '@/components/skeletons/skeletonCard';
 
-export function SkeletonEventList() {
+export function SkeletonCardList() {
   const numberOfSkeletons = 5; // Cambia questo valore per il numero di scheletri che vuoi mostrare
 
   return (

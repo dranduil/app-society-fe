@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import { SkeletonEventList } from "@/components/skeletons/skeletonEventList";
+import { SkeletonCardList } from "@/components/skeletons/skeletonCardList";
 
 export default function EventsPage() {
     return (
@@ -7,7 +7,7 @@ export default function EventsPage() {
             <Header></Header>
             <div className="container mx-auto mt-8">
                 <h1 className="text-2xl font-bold mb-4">Event List</h1>
-                <SkeletonEventList />
+                <SkeletonCardList />
             </div>
         </div>
     )

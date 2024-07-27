@@ -1,7 +1,7 @@
 import { configureStore, ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import authReducer from '@/store/auth/authSlice';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 // Configure the store with the reducers
 const store = configureStore({
@@ -30,12 +30,12 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 // Subscribe to store to handle cookies
 appStore.subscribe(() => {
-  const state = appStore.getState().auth;
-  if (state.token && state.refreshToken) {
-    Cookies.set('token', state.token, { expires: 60 });
-    Cookies.set('refreshToken', state.refreshToken, { expires: 60 });
-  } else {
-    Cookies.remove('token');
-    Cookies.remove('refreshToken');
-  }
+  // const state = appStore.getState().auth;
+  // if (state.token && state.refreshToken) {
+  //   Cookies.set('token', state.token, { expires: 60 });
+  //   Cookies.set('refreshToken', state.refreshToken, { expires: 60 });
+  // } else {
+  //   Cookies.remove('token');
+  //   Cookies.remove('refreshToken');
+  // }
 });

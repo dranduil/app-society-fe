@@ -1,9 +1,9 @@
-import { configLocal } from '@/config/enviroments';
+import { configProd } from '@/config/enviroments';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const apiClient = axios.create({
-  baseURL: configLocal.apiUrl, // Sostituisci con il tuo endpoint API
+  baseURL: configProd.apiUrl, // Sostituisci con il tuo endpoint API
   headers: {
     'Content-Type': 'application/json',
   },

@@ -4,35 +4,33 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, RootState } from "@/store";
-import { loginUser } from '@/store/auth/authSlice'
-import {  useSelector } from 'react-redux';
-
+import { useAppDispatch, useAppSelector } from '@/store';
+import { loginUser } from '@/store/auth/authSlice';
 
 export function LoginPage() {
+  const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { loading, error } = useSelector((state: RootState) => state.auth);
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
+
   
-  //   }
-  // }, [isAuthenticated, navigate]);
+  if (isAuthenticated) {
+    return null;
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle the login logic, e.g., dispatch a login action
-    dispatch(
-      loginUser(
-        {
-          email:email,
-          password:password
-        }
-      )
-    )
+    dispatch(loginUser({ email, password }));
   };
 
   return (
@@ -75,10 +73,10 @@ export function LoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full">
-            {loading ? 'Login in...' : 'Login'}
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
             </Button>
-            <Button variant="outline" className="w-full" disabled>
+            <Button variant="outline" className="w-full">
               Login with Google
             </Button>
           </form>

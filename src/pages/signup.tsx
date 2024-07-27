@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -11,17 +10,25 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, RootState } from "@/store";
+import { useAppDispatch, RootState, useAppSelector } from "@/store";
 import { signupUser } from "@/store/auth/authSlice";
 
 export function Signup() {
+    const { loading, error, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+        navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
+
+
   const [surName, setSurName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { loading, error } = useSelector((state: RootState) => state.auth);
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();

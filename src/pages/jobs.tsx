@@ -1,6 +1,8 @@
 import Header from "@/components/header";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 
@@ -60,28 +62,121 @@ export default function JobsPage() {
                                                 <p>some description here</p>
                                             </TableCell>
                                             <TableCell>
-                                            <Badge variant="outline">Company name</Badge>
+                                                <Badge variant="outline">Company name</Badge>
                                             </TableCell>
                                             <TableCell className="hidden md:table-cell">
-                                            $499.99
+                                                $499.99
                                             </TableCell>
                                             <TableCell className="hidden md:table-cell">
-                                            AUE - Dubai
+                                                AUE - Dubai
                                             </TableCell>
                                             <TableCell className="hidden md:table-cell">
-                                            2023-07-12 10:42 AM
+                                                2023-07-12 10:42 AM
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="hidden sm:table-cell">
+                                                <Skeleton className="h-[64px] w-[64px] rounded-xl" />
+                                            </TableCell>
+                                            <TableCell >
+                                            <div className="space-y-2">
+                                                <Skeleton className="h-4 w-[250px]" />
+                                                <Skeleton className="h-4 w-[200px]" />
+                                            </div>
                                             </TableCell>
                                             <TableCell>
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="hidden sm:table-cell">
+                                                <Skeleton className="h-[64px] w-[64px] rounded-xl" />
+                                            </TableCell>
+                                            <TableCell >
+                                            <div className="space-y-2">
+                                                <Skeleton className="h-4 w-[250px]" />
+                                                <Skeleton className="h-4 w-[200px]" />
+                                            </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="hidden sm:table-cell">
+                                                <Skeleton className="h-[64px] w-[64px] rounded-xl" />
+                                            </TableCell>
+                                            <TableCell >
+                                            <div className="space-y-2">
+                                                <Skeleton className="h-4 w-[250px]" />
+                                                <Skeleton className="h-4 w-[200px]" />
+                                            </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell">
+                                                <Skeleton className="h-4 w-[50px]" />
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
                                 </CardContent>
                                 <CardFooter>
-                                <div className="text-xs text-muted-foreground">
-                                    Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                                    products
-                                </div>
+                                    <div className="text-xs text-muted-foreground mb-3 mt-3">
+                                        Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+                                        products
+                                    </div>
+                                </CardFooter>
+                                <CardFooter>
+                                    <Pagination>
+                                        <PaginationContent>
+                                            <PaginationItem>
+                                                <PaginationPrevious href="#" />
+                                            </PaginationItem>
+                                            <PaginationItem>
+                                                <PaginationLink href="#">1</PaginationLink>
+                                            </PaginationItem>
+                                            <PaginationItem>
+                                                <PaginationLink href="#" isActive>
+                                                    2
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                            <PaginationItem>
+                                                <PaginationLink href="#">3</PaginationLink>
+                                            </PaginationItem>
+                                            <PaginationItem>
+                                                <PaginationEllipsis />
+                                            </PaginationItem>
+                                            <PaginationItem>
+                                                <PaginationNext href="#" />
+                                            </PaginationItem>
+                                        </PaginationContent>
+                                    </Pagination>
                                 </CardFooter>
                             </Card>
                         </TabsContent>

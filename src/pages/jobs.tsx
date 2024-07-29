@@ -43,13 +43,15 @@ export default function JobsPage() {
                                     <TableBody>
                                         <TableRow>
                                             <TableCell className="hidden sm:table-cell">
-                                            <img
-                                                alt="Product image"
-                                                className="aspect-square rounded-md object-cover"
-                                                height="64"
-                                                src="/placeholder.svg"
-                                                width="64"
-                                            />
+                                                <a href="http://www.google.it" target="_blank">
+                                                    <img
+                                                        alt="Product image"
+                                                        className="aspect-square rounded-md object-cover"
+                                                        height="64"
+                                                        src="/placeholder.svg"
+                                                        width="64"
+                                                    />
+                                                </a>
                                             </TableCell>
                                             <TableCell >
                                                 <a href="http://www.google.it" target="_blank">
@@ -58,13 +60,13 @@ export default function JobsPage() {
                                                 <p>some description here</p>
                                             </TableCell>
                                             <TableCell>
-                                            <Badge variant="outline">Draft</Badge>
+                                            <Badge variant="outline">Company name</Badge>
                                             </TableCell>
                                             <TableCell className="hidden md:table-cell">
                                             $499.99
                                             </TableCell>
                                             <TableCell className="hidden md:table-cell">
-                                            25
+                                            AUE - Dubai
                                             </TableCell>
                                             <TableCell className="hidden md:table-cell">
                                             2023-07-12 10:42 AM

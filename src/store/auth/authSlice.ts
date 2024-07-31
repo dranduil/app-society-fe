@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '@/api/apiClient';
 import { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import { Cookie } from 'lucide-react';
 
 
 interface AuthState {

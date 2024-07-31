@@ -5,7 +5,7 @@ interface Enviroment {
 }
 
 export const configProd:Enviroment = {
-    apiUrl: 'https://flexa.life',
+    apiUrl: 'https://api.flexa.life',
     enviroment: 'prod',
     nameApp: 'Flexa Life'
 }

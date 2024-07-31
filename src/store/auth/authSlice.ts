@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '@/api/apiClient';
 import { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
+import { Cookie } from 'lucide-react';
 
 
 interface AuthState {
@@ -75,6 +76,8 @@ export const logoutUser = createAsyncThunk(
     {
       if( error instanceof AxiosError)
         {
+          Cookies.remove('token')
+          Cookies.remove('refreshToken')
           return rejectWithValue(error.response?.data.message)
         }
     }

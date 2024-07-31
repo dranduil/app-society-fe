@@ -108,13 +108,15 @@ export default function Header(){
             <Button variant="secondary" size="icon" className="rounded-full">
               { profile.imageUrl ?
                 <AspectRatio>
-                  <img
-                  src={profile.imageUrl as string}
-                  alt={profile.username as string}
-                  className="rounded-md object-cover"
-                  >
-                  </img>
-                </AspectRatio>:
+                  <div className="rounded-full object-cover" style={{
+                    background: 'url(' + profile.imageUrl + ')',
+                    width: '40px',
+                    height: '40px',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                  }}>
+                  </div>
+                </AspectRatio> :
                 <CircleUser className="h-5 w-5" />
               }
               

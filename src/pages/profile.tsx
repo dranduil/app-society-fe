@@ -79,9 +79,9 @@ export default function ProfilePage() {
           <div className="grid gap-6">
             <Card x-chunk="dashboard-04-chunk-1" id="avatar">
               <CardHeader>
-                <CardTitle>Image Profile</CardTitle>
+                <CardTitle>Change Image Profile</CardTitle>
                 <CardDescription>
-                  Used to identify your store in the marketplace.
+                  Choose your image profile or your personal avtar, upload it from your files
                 </CardDescription>
                 {!profile.imageUrl ? (
                   <ContextMenu>
@@ -90,14 +90,15 @@ export default function ProfilePage() {
                     </ContextMenuTrigger>
                   </ContextMenu>
                 ) : (
-                  <AspectRatio ratio={3}>
-                    <img
-                      src={profile.imageUrl as string}
-                      alt={profile.username as string}
-                      width={200}
-                      height={200}
-                      className="rounded-full object-cover"
-                    />
+                  <AspectRatio ratio={4}>
+                     <div className="rounded-full object-cover outline outline-offset-0 outline-white shadow-lg" style={{
+                    background: 'url(' + profile.imageUrl + ')',
+                    width: '200px',
+                    height: '200px',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+
+                  }}></div>
                   </AspectRatio>
                 )}
               </CardHeader>

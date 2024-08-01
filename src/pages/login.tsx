@@ -17,6 +17,7 @@ export function LoginPage() {
     }
   }, [isAuthenticated, navigate]);
 
+  const thirdPartyLoginAvailable = false
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -80,7 +81,7 @@ export function LoginPage() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? 'Logging in...' : 'Login'}
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" disabled={!thirdPartyLoginAvailable}>
               Login with Google
             </Button>
           </form>

@@ -30,6 +30,8 @@ export function Signup() {
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
 
+  const thirdPartyLoginAvailable = false
+
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(
@@ -87,8 +89,8 @@ export function Signup() {
               {loading ? 'Creating account...' : 'Create an account'}
             </Button>
             {error && <p className="text-red-500 text-center">{error}</p>}
-            <Button variant="outline" className="w-full">
-              Sign up with GitHub
+            <Button variant="outline" className="w-full" disabled={!thirdPartyLoginAvailable}>
+              Sign up with Google
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">

@@ -1,13 +1,22 @@
 import Header from "@/components/header";
+import { RowTableSkeleton } from "@/components/skeletons/rowTableSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { AppThunkDispatch, useAppSelector } from "@/store";
+import { getJobs } from "@/store/jobs/jobsSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export default function JobsPage() {
-    
+    const jobs = useAppSelector((state) => state.jobs);
+    const dispatch = useDispatch<AppThunkDispatch>()
+    useEffect(() => {
+        dispatch(getJobs())
+    }, [dispatch])
+
     return (
         <div>
             <Header></Header>
@@ -43,112 +52,54 @@ export default function JobsPage() {
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        <TableRow>
-                                            <TableCell className="hidden sm:table-cell">
-                                                <a href="http://www.google.it" target="_blank">
-                                                    <img
-                                                        alt="Product image"
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="64"
-                                                        src="/placeholder.svg"
-                                                        width="64"
-                                                    />
-                                                </a>
-                                            </TableCell>
-                                            <TableCell >
-                                                <a href="http://www.google.it" target="_blank">
-                                                    <h2 className="font-medium">Job Title</h2>
-                                                </a>
-                                                <p>some description here</p>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Badge variant="outline">Company name</Badge>
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                $499.99
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                AUE - Dubai
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                2023-07-12 10:42 AM
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="hidden sm:table-cell">
-                                                <Skeleton className="h-[64px] w-[64px] rounded-xl" />
-                                            </TableCell>
-                                            <TableCell >
-                                            <div className="space-y-2">
-                                                <Skeleton className="h-4 w-[250px]" />
-                                                <Skeleton className="h-4 w-[200px]" />
-                                            </div>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="hidden sm:table-cell">
-                                                <Skeleton className="h-[64px] w-[64px] rounded-xl" />
-                                            </TableCell>
-                                            <TableCell >
-                                            <div className="space-y-2">
-                                                <Skeleton className="h-4 w-[250px]" />
-                                                <Skeleton className="h-4 w-[200px]" />
-                                            </div>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="hidden sm:table-cell">
-                                                <Skeleton className="h-[64px] w-[64px] rounded-xl" />
-                                            </TableCell>
-                                            <TableCell >
-                                            <div className="space-y-2">
-                                                <Skeleton className="h-4 w-[250px]" />
-                                                <Skeleton className="h-4 w-[200px]" />
-                                            </div>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                            <TableCell className="hidden md:table-cell">
-                                                <Skeleton className="h-4 w-[50px]" />
-                                            </TableCell>
-                                        </TableRow>
+                                        {
+                                            jobs.elements?.map((job) => {
+                                                return (
+                                                <TableRow key={job.id}>
+                                                    <TableCell className="hidden sm:table-cell">
+                                                        <a href={job.url} target="_blank">
+                                                            <img
+                                                                alt={job.title}
+                                                                className="aspect-square rounded-md object-cover"
+                                                                height="64"
+                                                                src={job.logoCompany}
+                                                                width="64"
+                                                            />
+                                                        </a>
+                                                    </TableCell>
+                                                    <TableCell >
+                                                        <a href={job.url} target="_blank">
+                                                            <h2 className="font-medium">{job.title}</h2>
+                                                        </a>
+                                                        <p>{job.description}</p>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Badge variant="outline">{job.companyName}</Badge>
+                                                    </TableCell>
+                                                    <TableCell className="hidden md:table-cell">
+                                                        {job.salary}
+                                                    </TableCell>
+                                                    <TableCell className="hidden md:table-cell">
+                                                        {job.location}
+                                                    </TableCell>
+                                                    <TableCell className="hidden md:table-cell">
+                                                        2023-07-12 10:42 AM
+                                                    </TableCell>
+                                                </TableRow>)
+                                            })
+                                        }
+                                        
+                                    {
+                                        jobs.isLoading &&
+                                        <RowTableSkeleton></RowTableSkeleton>
+                                    }
+                                        
                                     </TableBody>
                                 </Table>
                                 </CardContent>
                                 <CardFooter>
                                     <div className="text-xs text-muted-foreground mb-3 mt-3">
-                                        Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+                                        Showing <strong>{jobs.elements?.length}-{jobs.totalElement}</strong>{" "}
                                         products
                                     </div>
                                 </CardFooter>

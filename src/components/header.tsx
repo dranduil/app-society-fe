@@ -28,6 +28,7 @@ export default function Header(){
   const profile = useAppSelector((state) => state.profile);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const isSearchAvailable = false
   const handleLogout = async () => {
     const resultAction = await dispatch(logoutUser());
     console.log(resultAction)
@@ -94,12 +95,18 @@ export default function Header(){
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <form className="ml-auto flex-1 sm:flex-initial">
           <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-            />
+            {
+              isSearchAvailable && 
+              <>
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search products..."
+                  className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+                />
+              </>
+            }
+            
           </div>
         </form>
         <ModeToggle></ModeToggle>

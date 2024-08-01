@@ -1,7 +1,8 @@
-import { configureStore, ThunkDispatch, UnknownAction } from '@reduxjs/toolkit';
+import { AnyAction, configureStore, ThunkDispatch, UnknownAction } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import authReducer from '@/store/auth/authSlice';
 import profileReducer from '@/store/profile/profileSlice'
+import jobsReducer from '@/store/jobs/jobsSlice'
 
 // import Cookies from 'js-cookie';
 
@@ -9,7 +10,8 @@ import profileReducer from '@/store/profile/profileSlice'
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    jobs: jobsReducer,
   },
 });
 
@@ -17,7 +19,7 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 
 // Create a type for thunk dispatch
-export type AppThunkDispatch = ThunkDispatch<RootState, unknown, UnknownAction>;
+export type AppThunkDispatch = ThunkDispatch<RootState, unknown, UnknownAction|AnyAction>;
 
 // Create a type for the store using RootState and Thunk enabled dispatch
 export type AppStore = Omit<typeof store, "dispatch"> & {

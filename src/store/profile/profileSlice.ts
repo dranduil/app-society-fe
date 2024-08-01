@@ -130,7 +130,6 @@ const profileUserSlice = createSlice({
                 state.gender.name = action.payload.gender.name
             })
             .addCase(changeImageProfile.fulfilled, (state, action:PayloadAction<ProfileUserResponse>) => {
-                console.log(action.payload)
                 state.imageUrl = action.payload.image_url
             })
     }

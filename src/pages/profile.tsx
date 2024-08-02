@@ -90,7 +90,7 @@ export default function ProfilePage() {
                     </ContextMenuTrigger>
                   </ContextMenu>
                 ) : (
-                  <AspectRatio ratio={4}>
+                  
                      <div className="rounded-full object-cover outline outline-offset-0 outline-white shadow-lg" style={{
                     background: 'url(' + profile.imageUrl + ')',
                     width: '200px',
@@ -99,7 +99,7 @@ export default function ProfilePage() {
                     backgroundSize: 'cover',
 
                   }}></div>
-                  </AspectRatio>
+                  
                 )}
               </CardHeader>
               <form onSubmit={handleChangeImageProfile}>

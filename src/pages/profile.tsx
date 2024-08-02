@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Label } from "@/components/ui/label";
 import { AppThunkDispatch, useAppSelector } from '@/store';
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";

@@ -26,77 +26,41 @@ export default function JobsPage() {
                         <TabsContent value="all">
                             <Card x-chunk="dashboard-06-chunk-0">
                                 <CardHeader>
-                                <CardTitle>Job List</CardTitle>
-                                <CardDescription>
-                                    Here job list of Dubai
-                                </CardDescription>
+                                    <CardTitle>Job List</CardTitle>
+                                    <CardDescription>
+                                        Here job list of Dubai
+                                    </CardDescription>
                                 </CardHeader>
-                                <CardContent>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead className="hidden w-[100px] sm:table-cell">
-                                                <span className="sr-only">Image</span>
-                                            </TableHead>
-                                            <TableHead>Job info</TableHead>
-                                            <TableHead>Company</TableHead>
-                                            <TableHead className="hidden md:table-cell">
-                                                Salary
-                                            </TableHead>
-                                            <TableHead className="hidden md:table-cell">
-                                                Located
-                                            </TableHead>
-                                            <TableHead className="hidden md:table-cell">
-                                                Created at
-                                            </TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {
+                                {
                                             jobs.elements?.map((job) => {
                                                 return (
-                                                <TableRow key={job.id}>
-                                                    <TableCell className="hidden sm:table-cell">
-                                                        <a href={job.url} target="_blank">
-                                                            <img
-                                                                alt={job.title}
-                                                                className="aspect-square rounded-md object-cover"
-                                                                height="64"
-                                                                src={job.logoCompany}
-                                                                width="64"
-                                                            />
-                                                        </a>
-                                                    </TableCell>
-                                                    <TableCell >
-                                                        <a href={job.url} target="_blank">
-                                                            <h2 className="font-medium">{job.title}</h2>
-                                                        </a>
+                                                <div className="m-6 flex" key={job.id}>
+                                                    <a>
+                                                        <div className="rounded-md w-[100px] h-[100px]" style={{
+                                                            background: 'url(' + job.logoCompany + ')',
+                                                            width: '100px',
+                                                            height: '100px',
+                                                            backgroundPosition: 'center',
+                                                            backgroundSize:'cover'
+                                                        }}>
+                                                        </div>
+                                                    </a>
+                                                    <div className="ml-4 flex flex-col">
+                                                        <h2><a>{job.title}</a></h2>
                                                         <p>{job.description}</p>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Badge variant="outline">{job.companyName}</Badge>
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        {job.salary}
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        {job.location}
-                                                    </TableCell>
-                                                    <TableCell className="hidden md:table-cell">
-                                                        2023-07-12 10:42 AM
-                                                    </TableCell>
-                                                </TableRow>)
+                                                        <div className="mt-2 mb-2 flex">
+                                                            <p className="p-1">{job.location}</p>
+                                                            |
+                                                            <p className="p-1">{job.salary}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>)
                                             })
                                         }
-                                        
-                                    {
-                                        jobs.isLoading &&
-                                        <RowTableSkeleton></RowTableSkeleton>
-                                    }
-                                        
-                                    </TableBody>
-                                </Table>
-                                </CardContent>
+                                {
+                                    jobs.isLoading &&
+                                    <RowTableSkeleton></RowTableSkeleton>
+                                }
                                 <CardFooter>
                                     <div className="text-xs text-muted-foreground mb-3 mt-3">
                                         Showing <strong>{jobs.elements?.length}-{jobs.totalElement}</strong>{" "}

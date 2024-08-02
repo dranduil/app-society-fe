@@ -13,11 +13,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { AppThunkDispatch, useAppSelector } from '@/store';
-import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeImageProfile } from "@/store/profile/profileSlice";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AvatarFallback, AvatarImage, Avatar } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProfilePage() {
   const profile = useAppSelector((state) => state.profile);
@@ -83,22 +84,13 @@ export default function ProfilePage() {
                   Choose your image profile or your personal avtar, upload it from your files
                 </CardDescription>
                 {!profile.imageUrl ? (
-                  <ContextMenu>
-                    <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
-                      Drop image Here
-                    </ContextMenuTrigger>
-                  </ContextMenu>
+                  <Skeleton className="h-[100px] w-[100px] "></Skeleton>
                 ) : (
                   
-                     <div className="rounded-full object-cover outline outline-offset-0 outline-white shadow-lg" style={{
-                    background: 'url(' + profile.imageUrl + ')',
-                    width: '200px',
-                    height: '200px',
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-
-                  }}></div>
-                  
+                  <Avatar>
+                    <AvatarImage src={profile.imageUrl} alt={profile.username ?? ''} />
+                    <AvatarFallback>{profile.name}</AvatarFallback>
+                  </Avatar>
                 )}
               </CardHeader>
               <form onSubmit={handleChangeImageProfile}>

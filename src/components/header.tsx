@@ -12,7 +12,6 @@ import { Link, useNavigate} from "react-router-dom"
 import {
     CircleUser,
     Menu,
-    Package2,
     Search,
   } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -20,7 +19,7 @@ import { ModeToggle } from "./mode-toggle"
 import { useAppDispatch, useAppSelector } from '@/store';
 import { logoutUser } from "@/store/auth/authSlice"
 import { profileUser } from "@/store/profile/profileSlice"
-import { AspectRatio } from "@radix-ui/react-aspect-ratio"
+import { AvatarFallback, AvatarImage, Avatar } from "@/components/ui/avatar";
 import { useEffect } from 'react';
 import { configLocal } from "@/config/enviroments"
 
@@ -71,8 +70,8 @@ export default function Header(){
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link to="/" className="flex items-center gap-2 text-lg font-semibold">
-              <Package2 className="h-6 w-6" />
-              <span className="sr-only">Acme Inc</span>
+            {configLocal.nameApp}
+              <span className="sr-only">{configLocal.nameApp}</span>
             </Link>
             <Link to="/" className="hover:text-foreground">
               Dashboard
@@ -114,16 +113,10 @@ export default function Header(){
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
               { profile.imageUrl ?
-                <AspectRatio>
-                  <div className="rounded-full object-cover" style={{
-                    background: 'url(' + profile.imageUrl + ')',
-                    width: '40px',
-                    height: '40px',
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                  }}>
-                  </div>
-                </AspectRatio> :
+                <Avatar>
+                <AvatarImage src={profile.imageUrl} alt={profile.username ?? ''} />
+                <AvatarFallback>{profile.name}</AvatarFallback>
+              </Avatar> :
                 <CircleUser className="h-5 w-5" />
               }
               

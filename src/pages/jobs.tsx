@@ -1,9 +1,7 @@
 import Header from "@/components/header";
 import { RowTableSkeleton } from "@/components/skeletons/rowTableSkeleton";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { AppThunkDispatch, useAppSelector } from "@/store";
 import { getJobs } from "@/store/jobs/jobsSlice";
@@ -35,7 +33,7 @@ export default function JobsPage() {
                                             jobs.elements?.map((job) => {
                                                 return (
                                                 <div className="m-6 flex" key={job.id}>
-                                                    <a>
+                                                    <a href={job.url} target="_blank">
                                                         <div className="rounded-md w-[100px] h-[100px]" style={{
                                                             background: 'url(' + job.logoCompany + ')',
                                                             width: '100px',
@@ -46,11 +44,16 @@ export default function JobsPage() {
                                                         </div>
                                                     </a>
                                                     <div className="ml-4 flex flex-col">
-                                                        <h2><a>{job.title}</a></h2>
-                                                        <p>{job.description}</p>
-                                                        <div className="mt-2 mb-2 flex">
+                                                        <h2>
+                                                            <a className="text-xl" href={job.url} target="_blank">{job.title}</a>
+                                                        </h2>
+                                                        <a href={job.url} target="_blank">
+                                                            <span className="text-sm italic">{job.companyName}</span>
+                                                        </a>
+                                                        <p className="text-base">{job.description}</p>
+                                                        <div className="mt-2 mb-2 flex content-center">
                                                             <p className="p-1">{job.location}</p>
-                                                            |
+                                                            <span className="p-1 ml-2 mr-2">|</span>
                                                             <p className="p-1">{job.salary}</p>
                                                         </div>
                                                     </div>

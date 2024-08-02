@@ -1,7 +1,7 @@
 import Header from "@/components/header";
+import { PaginationComponent } from "@/components/pagination-component";
 import { RowTableSkeleton } from "@/components/skeletons/rowTableSkeleton";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { AppThunkDispatch, useAppSelector } from "@/store";
 import { getJobs } from "@/store/jobs/jobsSlice";
@@ -32,32 +32,33 @@ export default function JobsPage() {
                                 {
                                             jobs.elements?.map((job) => {
                                                 return (
-                                                <div className="m-6 flex" key={job.id}>
-                                                    <a href={job.url} target="_blank">
-                                                        <div className="rounded-md w-[100px] h-[100px]" style={{
-                                                            background: 'url(' + job.logoCompany + ')',
-                                                            width: '100px',
-                                                            height: '100px',
-                                                            backgroundPosition: 'center',
-                                                            backgroundSize:'cover'
-                                                        }}>
-                                                        </div>
-                                                    </a>
-                                                    <div className="ml-4 flex flex-col">
-                                                        <h2>
-                                                            <a className="text-xl" href={job.url} target="_blank">{job.title}</a>
-                                                        </h2>
-                                                        <a href={job.url} target="_blank">
-                                                            <span className="text-sm italic">{job.companyName}</span>
+                                                    <Card className="m-6 flex p-2" key={job.id}>
+                                                        <a href={job.url} className="rounded-md w-[126px] h-[126px]" target="_blank">
+                                                            <div className="rounded-md w-[126px] h-[126px]" style={{
+                                                                background: 'url(' + job.logoCompany + ')',
+                                                                width: '126px',
+                                                                height: '126px',
+                                                                backgroundPosition: 'center',
+                                                                backgroundSize:'cover'
+                                                            }}>
+                                                            </div>
                                                         </a>
-                                                        <p className="text-base">{job.description}</p>
-                                                        <div className="mt-2 mb-2 flex content-center">
-                                                            <p className="p-1">{job.location}</p>
-                                                            <span className="p-1 ml-2 mr-2">|</span>
-                                                            <p className="p-1">{job.salary}</p>
+                                                        <div className="ml-4 flex flex-col">
+                                                            <h2>
+                                                                <a className="text-xl" href={job.url} target="_blank">{job.title}</a>
+                                                            </h2>
+                                                            <a href={job.url} target="_blank">
+                                                                <span className="text-sm italic">{job.companyName}</span>
+                                                            </a>
+                                                            <p className="text-base">{job.description}</p>
+                                                            <div className="mt-2 mb-2 flex content-center">
+                                                                <p className="p-1">{job.location}</p>
+                                                                <span className="p-1 ml-2 mr-2">|</span>
+                                                                <p className="p-1">{job.salary}</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>)
+                                                    </Card>
+                                                )
                                             })
                                         }
                                 {
@@ -71,30 +72,7 @@ export default function JobsPage() {
                                     </div>
                                 </CardFooter>
                                 <CardFooter>
-                                    <Pagination>
-                                        <PaginationContent>
-                                            <PaginationItem>
-                                                <PaginationPrevious href="#" />
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink href="#">1</PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink href="#" isActive>
-                                                    2
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink href="#">3</PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationEllipsis />
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationNext href="#" />
-                                            </PaginationItem>
-                                        </PaginationContent>
-                                    </Pagination>
+                                    <PaginationComponent totalElements={jobs.totalElement as number} perPage={jobs.elements?.length as number}></PaginationComponent>
                                 </CardFooter>
                             </Card>
                         </TabsContent>

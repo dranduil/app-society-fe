@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction, UnknownAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '@/api/apiClient';
 import { AxiosError } from 'axios';
 
@@ -84,7 +84,7 @@ const jobsSlice = createSlice({
             state.isLoading = true
         })
         .addCase(getJobs.rejected, (state) => {
-            state.isLoading = false;
+            state.isLoading = true;
         })
     },
 })

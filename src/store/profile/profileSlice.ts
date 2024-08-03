@@ -3,24 +3,24 @@ import apiClient from '@/api/apiClient';
 import { AxiosError } from 'axios';
 
 export interface ProfileUser {
-    id:number,
-    biography:string|null,
-    link:string|null,
-    username:string|null,
-    imageUrl:string|null,
-    genderId: number|null,
-    nationalityId: number|null,
-    email:string,
-    name:string,
-    surname:string,
-    nationality: {
+    id?:number,
+    biography?:string|null,
+    link?:string|null,
+    username?:string|null,
+    imageUrl?:string|null,
+    genderId?: number|null,
+    nationalityId?: number|null,
+    email?:string,
+    name?:string,
+    surname?:string,
+    nationality?: {
         id:number|null,
         name:string|null,
         code:string|null,
         phoneCode:string|null,
         flagEmoji:string|null,
     },
-    gender:{
+    gender?:{
         id:number|null,
         name:string|null
     }
@@ -50,28 +50,18 @@ export interface ProfileUserResponse {
     }
 }
 
+export interface ProfileUserPayload {
+    biography:string|null,
+    link:string|null,
+    username:string|null,
+    gender_id: number|null,
+    nationality_id: number|null,
+    name:string,
+    surname:string
+}
+
 const initialState: ProfileUser = {
-    id: 0,
-    biography:null,
-    link:null,
-    username:null,
-    imageUrl:null,
-    genderId:0,
-    nationalityId:0,
-    email:'',
-    name:'',
-    surname:'',
-    nationality: {
-        id:0,
-        name:'',
-        code:'',
-        phoneCode:'',
-        flagEmoji:''
-    },
-    gender: {
-        id:0,
-        name:''
-    }
+    
 }
 
 export const profileUser = createAsyncThunk(
@@ -79,6 +69,21 @@ export const profileUser = createAsyncThunk(
     async(_, {rejectWithValue}) => {
         try {
             const response = await apiClient.get('/api/profile')
+            return response.data
+        } catch(error:unknown) {
+            if( error instanceof AxiosError)
+            {
+                return rejectWithValue(error.response?.data.message)
+            }
+        }
+    }
+)
+
+export const updateProfileUser = createAsyncThunk(
+    'profile/update',
+    async(payload: ProfileUserPayload, {rejectWithValue}) => {
+        try {
+            const response = await apiClient.patch('/api/profile/edit', payload)
             return response.data
         } catch(error:unknown) {
             if( error instanceof AxiosError)
@@ -121,13 +126,17 @@ const profileUserSlice = createSlice({
                 state.email = action.payload.email
                 state.name = action.payload.name
                 state.surname = action.payload.surname
-                state.nationality.id = action.payload.nationality.id
-                state.nationality.name = action.payload.nationality.name
-                state.nationality.code = action.payload.nationality.code
-                state.nationality.phoneCode = action.payload.nationality.phoneCode
-                state.nationality.flagEmoji = action.payload.nationality.flagEmoji
-                state.gender.id = action.payload.gender.id
-                state.gender.name = action.payload.gender.name
+                state.nationality = {
+                    id: action.payload.nationality.id,
+                    name: action.payload.nationality.name,
+                    code: action.payload.nationality.code,
+                    phoneCode: action.payload.nationality.phoneCode,
+                    flagEmoji: action.payload.nationality.flagEmoji
+                }
+                state.gender = {
+                    id: action.payload.gender.id,
+                    name: action.payload.gender.name
+                }
             })
             .addCase(changeImageProfile.fulfilled, (state, action:PayloadAction<ProfileUserResponse>) => {
                 state.imageUrl = action.payload.image_url

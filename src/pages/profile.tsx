@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import Main from "@/components/main";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -13,26 +13,41 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { AppThunkDispatch, useAppSelector } from '@/store';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { changeImageProfile } from "@/store/profile/profileSlice";
+import { changeImageProfile, updateProfileUser } from "@/store/profile/profileSlice";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AvatarFallback, AvatarImage, Avatar } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getNationalities } from "@/store/nationatilies/nationalitySlice";
+import { getGenders } from "@/store/genders/genderSlice";
 
 export default function ProfilePage() {
   const profile = useAppSelector((state) => state.profile);
+  const nationalState = useAppSelector((state) => state.nationalities)
+  const genderState = useAppSelector((state) => state.genders)
+
+  
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [profileForm, setProfileForm] = useState({
+    id: profile.id || undefined,
     name: profile.name || '',
     surname: profile.surname || '',
     biography: profile.biography || '',
     link: profile.link || '',
     username: profile.username || '',
-    gender: profile.gender || '',
-    nationality: profile.nationality || '',
+    genderId: profile.genderId || null,
+    nationalityId: profile.nationalityId || null,
+    gender: profile.gender || {},
+    nationality: profile.nationality || {},
   });
+
   const dispatch = useDispatch<AppThunkDispatch>();
+
+  useEffect(() => {
+    dispatch(getNationalities())
+    dispatch(getGenders())
+  }, [dispatch])
 
   const handleChangeImageProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,14 +70,43 @@ export default function ProfilePage() {
     }
   };
 
+  const handleSubmitForm = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if(profileForm) {
+      const payload = {
+        biography: profileForm.biography,
+        link: profileForm.link,
+        username: profileForm.username,
+        nationality_id: profileForm.nationalityId,
+        gender_id: profileForm.genderId,
+        name: profileForm.name,
+        surname: profileForm.surname
+      }
+      console.log(payload)
+      dispatch(updateProfileUser(payload))
+    }
+
+  }
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProfileForm({ ...profileForm, [name]: value });
   };
 
   const handleSelectChange = (name: string) => (value: string) => {
+    console.table(profileForm)
+    console.log(name)
+    console.log(value)
     setProfileForm({ ...profileForm, [name]: value });
   };
+
+  const {hash, key} = useLocation()
+    useEffect(()=>{
+      if(hash){
+        const targetElement = document.getElementById(hash.substring(1))
+          targetElement?.scrollIntoView({behavior: 'smooth'})
+      }
+  }, [key, hash])
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -73,8 +117,8 @@ export default function ProfilePage() {
         </div>
         <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
           <nav className="grid gap-4 text-sm text-muted-foreground" x-chunk="dashboard-04-chunk-0">
-            <Link to="#avatar">Avatar</Link>
-            <Link to="#personal-information">Personal Information</Link>
+            <Link to={{hash:'#avatar'}}>Avatar</Link>
+            <Link to={{hash:'#personal-information'}}>Personal Information</Link>
           </nav>
           <div className="grid gap-6">
             <Card x-chunk="dashboard-04-chunk-1" id="avatar">
@@ -109,14 +153,14 @@ export default function ProfilePage() {
                 </CardFooter>
               </form>
             </Card>
-            <Card x-chunk="dashboard-04-chunk-1" id="personal-information">
+            <Card x-chunk="dashboard-04-chunk-2" id="personal-information">
               <CardHeader>
                 <CardTitle>Personal information</CardTitle>
                 <CardDescription>
                   Edit your personal information here
                 </CardDescription>
               </CardHeader>
-              <form>
+              <form onSubmit={handleSubmitForm}>
                 <CardContent>
                   <Label htmlFor="name">Name</Label>
                   <Input type="text" name="name" onChange={handleInputChange} value={profileForm.name} />
@@ -139,35 +183,50 @@ export default function ProfilePage() {
                 </CardContent>
                 <CardContent>
                   <Label>Gender</Label>
-                  <Select onValueChange={handleSelectChange('gender')}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select your Gender" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  {
+                    genderState.isLoading ? <Skeleton className="rounded-md w-[180px] h-[40px]"></Skeleton> :
+                    <Select defaultValue={profile.genderId?.toString()} onValueChange={handleSelectChange('genderId')}>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select your Gender" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {
+                            genderState.genders.map((gender) => {
+                                return (
+                                  <SelectItem key={`${gender?.name}-${gender?.id}`} value={gender?.id ? gender?.id.toString() : ''}>{gender?.name}</SelectItem>
+                                )
+                            })
+                          }
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  }
                 </CardContent>
                 <CardContent>
                   <Label>Nationality</Label>
-                  <Select onValueChange={handleSelectChange('nationality')}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select Nationality" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Nationality</SelectLabel>
-                        <SelectItem value="american">American</SelectItem>
-                        <SelectItem value="british">British</SelectItem>
-                        <SelectItem value="canadian">Canadian</SelectItem>
-                        <SelectItem value="australian">Australian</SelectItem>
-                        {/* Add other nationalities here */}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  {
+                    nationalState.isLoading ?
+                    <Skeleton className="rounded-md w-[180px] h-[40px]"></Skeleton>
+                    :
+                      <Select defaultValue={profile.nationalityId?.toString()} onValueChange={handleSelectChange('nationalityId')}>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select Nationality" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Nationality</SelectLabel>
+                            {
+                              nationalState.nationalities.map((nationality) => {
+                                  return (
+                                    <SelectItem key={`${nationality?.name}-${nationality?.id}`} value={nationality?.id ? nationality?.id.toString() : ''}>{nationality?.flagEmoji} - {nationality?.code} -{nationality?.name}</SelectItem>
+                                  )
+                              })
+                            }
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                  }
                 </CardContent>
                 <CardFooter className="border-t px-6 py-4">
                   <Button type="submit">Save</Button>

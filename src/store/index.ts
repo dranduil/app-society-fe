@@ -3,6 +3,8 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import authReducer from '@/store/auth/authSlice';
 import profileReducer from '@/store/profile/profileSlice'
 import jobsReducer from '@/store/jobs/jobsSlice'
+import nationalitiesReducer from '@/store/nationatilies/nationalitySlice'
+import gendersReducer from '@/store/genders/genderSlice'
 
 // import Cookies from 'js-cookie';
 
@@ -12,6 +14,8 @@ const store = configureStore({
     auth: authReducer,
     profile: profileReducer,
     jobs: jobsReducer,
+    nationalities: nationalitiesReducer,
+    genders: gendersReducer
   },
 });
 

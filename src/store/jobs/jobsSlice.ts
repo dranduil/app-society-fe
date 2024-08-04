@@ -63,27 +63,28 @@ const jobsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getJobs.fulfilled, (state, action: PayloadAction<Response>) => {
-            state.totalElement = action.payload.total_elements
-            state.page = action.payload.page
-            state.elements = action.payload.elements.map((element: jobResponse): Job => ({
-                id: element.id,
-                title: element.title,
-                description: element.description,
-                url: element.url,
-                companyName: element.company_name,
-                logoCompany: element.logo_company,
-                location: element.location,
-                salary: element.salary
-            }))
-            state.isLoading = false
-        })
-        .addCase(getJobs.pending, (state) => {
-            state.isLoading = true
-        })
-        .addCase(getJobs.rejected, (state) => {
-            state.isLoading = true;
-        })
+        builder
+            .addCase(getJobs.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getJobs.fulfilled, (state, action: PayloadAction<Response>) => {
+                state.totalElement = action.payload.total_elements
+                state.page = action.payload.page
+                state.elements = action.payload.elements.map((element: jobResponse): Job => ({
+                    id: element.id,
+                    title: element.title,
+                    description: element.description,
+                    url: element.url,
+                    companyName: element.company_name,
+                    logoCompany: element.logo_company,
+                    location: element.location,
+                    salary: element.salary
+                }))
+                state.isLoading = false
+            })
+            .addCase(getJobs.rejected, (state) => {
+                state.isLoading = false;
+            })
     },
 })
 

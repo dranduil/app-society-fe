@@ -22,6 +22,7 @@ export default function JobsPage() {
 
     const handlePageChange = (page: number) => {
         navigate(`/jobs/page/${page}`);
+        dispatch(getJobs(page)); // Dispatch the action immediately when the page changes
     };
 
     return (
@@ -39,11 +40,13 @@ export default function JobsPage() {
                                     </CardDescription>
                                 </CardHeader>
                                 {
-                                    jobs.elements?.map((job) => {
-                                        return (
+                                    jobs.isLoading ? (
+                                        <RowTableSkeleton />
+                                    ) : (
+                                        jobs.elements?.map((job) => (
                                             <Card className="m-6 flex flex-col sm:flex-row p-2" key={job.id}>
-                                                <a href={job.url} className="rounded-md w-full sm:w-[400px] h-[400px]" target="_blank" rel="noopener noreferrer">
-                                                    <div className="rounded-md w-full sm:w-[400px] h-[400px]" style={{
+                                                <a href={job.url} className="rounded-md w-full sm:w-[126px] h-[126px]" target="_blank" rel="noopener noreferrer">
+                                                    <div className="rounded-md w-full sm:w-[126px] h-[126px]" style={{
                                                         background: `url(${job.logoCompany})`,
                                                         backgroundPosition: 'center',
                                                         backgroundSize: 'cover'
@@ -65,12 +68,8 @@ export default function JobsPage() {
                                                     </div>
                                                 </div>
                                             </Card>
-                                        );
-                                    })
-                                }
-                                {
-                                    jobs.isLoading &&
-                                    <RowTableSkeleton />
+                                        ))
+                                    )
                                 }
                                 <CardFooter>
                                     <div className="text-xs text-muted-foreground mb-3 mt-3">

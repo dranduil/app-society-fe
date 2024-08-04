@@ -1,24 +1,36 @@
-import { useState } from "react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 interface PaginationComponentProps {
     totalElements: number;
     perPage: number;
+    currentPage: number;
+    onPageChange: (page: number) => void;
 }
 
-export function PaginationComponent({totalElements, perPage}:PaginationComponentProps)
-{
-    const [currentPage, setCurrentPage] = useState<number>(1);
+export function PaginationComponent({ totalElements, perPage, currentPage, onPageChange }: PaginationComponentProps) {
     const totalPages = Math.ceil(totalElements / perPage);
+    const maxPageButtons = 5;
 
     const handlePageClick = (page: number) => {
-        setCurrentPage(page);
+        onPageChange(page);
     };
 
     const renderPaginationItems = (): JSX.Element[] => {
         const items: JSX.Element[] = [];
+        const half = Math.floor(maxPageButtons / 2);
+        let startPage = Math.max(1, currentPage - half);
+        let endPage = Math.min(totalPages, currentPage + half);
 
-        if(currentPage > 1){
+        // Adjust start and end if the number of pages is less than maxPageButtons
+        if (endPage - startPage < maxPageButtons - 1) {
+            if (startPage === 1) {
+                endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+            } else if (endPage === totalPages) {
+                startPage = Math.max(1, endPage - maxPageButtons + 1);
+            }
+        }
+
+        if (currentPage > 1) {
             // Add previous button
             items.push(
                 <PaginationItem key="prev">
@@ -28,7 +40,7 @@ export function PaginationComponent({totalElements, perPage}:PaginationComponent
         }
 
         // Add page numbers
-        for (let i = 1; i <= totalPages; i++) {
+        for (let i = startPage; i <= endPage; i++) {
             items.push(
                 <PaginationItem key={i}>
                     <PaginationLink
@@ -42,7 +54,7 @@ export function PaginationComponent({totalElements, perPage}:PaginationComponent
             );
         }
 
-        if(totalPages > 1){
+        if (currentPage < totalPages) {
             // Add next button
             items.push(
                 <PaginationItem key="next">
@@ -60,5 +72,5 @@ export function PaginationComponent({totalElements, perPage}:PaginationComponent
                 {renderPaginationItems()}
             </PaginationContent>
         </Pagination>
-    )
+    );
 }

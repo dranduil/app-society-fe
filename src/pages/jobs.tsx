@@ -27,7 +27,7 @@ export default function JobsPage() {
     return (
         <div>
             <Header />
-            <div className="container mx-auto mt-8">
+            <div className="container mx-auto mt-8 px-4 sm:px-6 lg:px-8">
                 <Tabs defaultValue="all">
                     <div>
                         <TabsContent value="all">
@@ -41,22 +41,20 @@ export default function JobsPage() {
                                 {
                                     jobs.elements?.map((job) => {
                                         return (
-                                            <Card className="m-6 flex p-2" key={job.id}>
-                                                <a href={job.url} className="rounded-md w-[126px] h-[126px]" target="_blank">
-                                                    <div className="rounded-md w-[126px] h-[126px]" style={{
-                                                        background: 'url(' + job.logoCompany + ')',
-                                                        width: '126px',
-                                                        height: '126px',
+                                            <Card className="m-6 flex flex-col sm:flex-row p-2" key={job.id}>
+                                                <a href={job.url} className="rounded-md w-full sm:w-[400px] h-[400px]" target="_blank" rel="noopener noreferrer">
+                                                    <div className="rounded-md w-full sm:w-[400px] h-[400px]" style={{
+                                                        background: `url(${job.logoCompany})`,
                                                         backgroundPosition: 'center',
                                                         backgroundSize: 'cover'
                                                     }}>
                                                     </div>
                                                 </a>
-                                                <div className="ml-4 flex flex-col">
+                                                <div className="ml-0 mt-4 sm:mt-0 sm:ml-4 flex flex-col">
                                                     <h2>
-                                                        <a className="text-xl" href={job.url} target="_blank">{job.title}</a>
+                                                        <a className="text-xl" href={job.url} target="_blank" rel="noopener noreferrer">{job.title}</a>
                                                     </h2>
-                                                    <a href={job.url} target="_blank">
+                                                    <a href={job.url} target="_blank" rel="noopener noreferrer">
                                                         <span className="text-sm italic">{job.companyName}</span>
                                                     </a>
                                                     <p className="text-base">{job.description}</p>
@@ -76,8 +74,8 @@ export default function JobsPage() {
                                 }
                                 <CardFooter>
                                     <div className="text-xs text-muted-foreground mb-3 mt-3">
-                                        Showing <strong>{jobs.elements?.length}-{jobs.totalElement}</strong>{" "}
-                                        products
+                                        Showing <strong>{jobs.elements?.length}</strong> of <strong>{jobs.totalElement}</strong>{" "}
+                                        jobs
                                     </div>
                                 </CardFooter>
                                 <CardFooter>

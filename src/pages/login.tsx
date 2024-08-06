@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { loginUser } from '@/store/auth/authSlice';
+import { toast } from "sonner"
+import { Toaster } from "@/components/ui/sonner"
 
 export function LoginPage() {
   const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
@@ -29,6 +31,9 @@ export function LoginPage() {
     return null;
   }
 
+  if(error == "Unauthorized")
+    toast("Login Failed")
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const resultAction = await dispatch(loginUser({ email, password }));
@@ -48,6 +53,7 @@ export function LoginPage() {
               Enter your email below to login to your account
             </p>
           </div>
+          <Toaster />
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>

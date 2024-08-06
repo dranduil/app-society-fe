@@ -44,7 +44,7 @@ export const loginUser = createAsyncThunk(
     } catch (error: unknown) {
         if( error instanceof AxiosError)
         {
-            return rejectWithValue(error.response?.data.message);
+            return rejectWithValue(error.response?.data.error);
         }
     }
   }
@@ -59,7 +59,7 @@ export const signupUser = createAsyncThunk(
     } catch (error: unknown) {
       if( error instanceof AxiosError)
         {
-            return rejectWithValue(error.response?.data.message);
+            return rejectWithValue(error.response?.data);
         }
     }
   }

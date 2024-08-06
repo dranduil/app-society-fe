@@ -14,6 +14,7 @@ function App() {
       dispatch(
         checkAuth({ token, refreshToken })
       );
+      
     }
   }, [dispatch]);
 

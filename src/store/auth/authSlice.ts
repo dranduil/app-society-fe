@@ -57,10 +57,12 @@ export const signupUser = createAsyncThunk(
   async (credentials: { name:string, surname:string, email: string; password: string }, { rejectWithValue }) => {
     try {
       const response = await apiClient.post('/api/sign-up', credentials);
+      toast("Registration Succefull")
       return response.data;
     } catch (error: unknown) {
       if( error instanceof AxiosError)
         {
+            toast("Registration Failed")
             return rejectWithValue(error.response?.data);
         }
     }

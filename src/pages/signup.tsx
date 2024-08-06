@@ -45,15 +45,11 @@ export function Signup() {
             }
         )
     )
-    toast("Registration Successful")
 
     setTimeout(() => {
         navigate('/login');
     }, 1500)
   };
-
-  if(error)
-    toast("Registration Failed")
 
   return (
     <div className="h-screen w-full flex items-center justify-center py-12">

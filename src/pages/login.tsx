@@ -86,10 +86,16 @@ export function LoginPage() {
             </Button>
           </form>
           {error && <p className="text-red-500 text-center">{error}</p>}
-          <div className="mt-4 text-center text-sm">
+          <div className="mt-1 text-center text-sm">
             Don&apos;t have an account?{' '}
             <Link to="/sign-up" className="underline">
               Sign up
+            </Link>
+          </div>
+          <div className="text-center text-sm">
+            Lost your password?{' '}
+            <Link to="/forgot-password" className="underline">
+              Click here
             </Link>
           </div>
         </div>

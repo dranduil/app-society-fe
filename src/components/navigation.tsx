@@ -16,6 +16,7 @@ import ComingSoonPage from "@/pages/coming-soon";
 import { Signup } from "@/pages/signup";
 import PrivateRoutes from "./privateRoutes";
 import { Toaster } from "@/components/ui/sonner"
+import { RequestPassword } from "@/pages/request-password";
 
 export default function Navigation() {
     const metaTitle = "Flexa Life"
@@ -31,6 +32,7 @@ export default function Navigation() {
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/sign-up" element={<Signup />} />
+                        <Route path="/forgot-password" element={<RequestPassword />} />
                         <Route path="/coming-soon" element={<ComingSoonPage />} />
                         <Route path="*" element={<PageNotFoundPage />} />
                         <Route element={<PrivateRoutes />}>

@@ -11,10 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, RootState, useAppSelector } from "@/store";
-import { signupUser } from "@/store/auth/authSlice";
 
-export function Signup() {
-    const { loading, error, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+export function RequestPassword() {
+    const { loading, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,26 +23,13 @@ export function Signup() {
     }, [isAuthenticated, navigate]);
 
 
-  const [surName, setSurName] = useState('');
-  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
 
-  const thirdPartyLoginAvailable = false
+
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(
-        signupUser(
-            {
-                name:firstName,
-                surname:surName,
-                email:email,
-                password:password
-            }
-        )
-    )
 
     setTimeout(() => {
         navigate('/login');
@@ -54,23 +40,13 @@ export function Signup() {
     <div className="h-screen w-full flex items-center justify-center py-12">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle className="text-xl">Sign Up</CardTitle>
+          <CardTitle className="text-xl">Request New Password</CardTitle>
           <CardDescription>
-            Enter your information to create an account
+            Enter your information to reset your password
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignup} className="grid gap-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="first-name">First name</Label>
-                <Input id="first-name" placeholder="Max" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="sur-name">Last name</Label>
-                <Input id="sur-name" placeholder="Robinson" value={surName} onChange={(e) => setSurName(e.target.value)} required />
-              </div>
-            </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -81,16 +57,8 @@ export function Signup() {
                 required
               />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Creating account...' : 'Create an account'}
-            </Button>
-            {error && <p className="text-red-500 text-center">{error}</p>}
-            <Button variant="outline" className="w-full" disabled={!thirdPartyLoginAvailable}>
-              Sign up with Google
+               Request new password
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">

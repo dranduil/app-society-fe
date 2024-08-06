@@ -128,12 +128,8 @@ export default function Header(){
               <DropdownMenuLabel >My Account</DropdownMenuLabel>
             </Link>
             <DropdownMenuSeparator />
-            <Link to='#'>
-              <DropdownMenuLabel>Settings</DropdownMenuLabel>
-            </Link>
-            <Link to='#'>
-              <DropdownMenuLabel>Support</DropdownMenuLabel>
-            </Link>
+            <DropdownMenuLabel aria-disabled={true}>Settings</DropdownMenuLabel>
+            <DropdownMenuLabel aria-disabled={true}>Support</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem style={{cursor: 'pointer'}} onClick={handleLogout}>Logout</DropdownMenuItem>
           </DropdownMenuContent>

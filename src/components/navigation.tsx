@@ -15,6 +15,7 @@ import { HelmetProvider } from "react-helmet-async";
 import ComingSoonPage from "@/pages/coming-soon";
 import { Signup } from "@/pages/signup";
 import PrivateRoutes from "./privateRoutes";
+import { Toaster } from "@/components/ui/sonner"
 
 export default function Navigation() {
     const metaTitle = "Flexa Life"
@@ -49,6 +50,7 @@ export default function Navigation() {
                         </Route>
                     </Routes>
                 </TooltipProvider>
+                <Toaster />
             </ThemeProvider>
         </Router>
     );

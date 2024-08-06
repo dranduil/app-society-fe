@@ -13,7 +13,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, RootState, useAppSelector } from "@/store";
 import { signupUser } from "@/store/auth/authSlice";
 import { toast } from "sonner"
-import { Toaster } from "@/components/ui/sonner"
 
 export function Signup() {
     const { loading, error, isAuthenticated } = useAppSelector((state: RootState) => state.auth);
@@ -58,7 +57,6 @@ export function Signup() {
 
   return (
     <div className="h-screen w-full flex items-center justify-center py-12">
-      <Toaster />
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-xl">Sign Up</CardTitle>

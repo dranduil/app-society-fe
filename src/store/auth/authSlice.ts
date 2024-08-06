@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '@/api/apiClient';
 import { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
+import { toast } from "sonner"
 
 
 interface AuthState {
@@ -44,6 +45,7 @@ export const loginUser = createAsyncThunk(
     } catch (error: unknown) {
         if( error instanceof AxiosError)
         {
+            toast("Login Failed")
             return rejectWithValue(error.response?.data.error);
         }
     }
@@ -94,6 +96,7 @@ const authSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.token = null;
         state.refreshToken = null;
+        state.error = null
         Cookies.remove('token')
         Cookies.remove('refreshToken')
       })
@@ -121,6 +124,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
         state.loading = false;
+        state.error = null
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;

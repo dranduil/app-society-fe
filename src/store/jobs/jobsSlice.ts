@@ -43,12 +43,18 @@ const initialState: Pagination = {
     elements: [],
     isLoading: true,
 }
+export interface getParams{
+    page:number,
+    query?:string
+}
 
-export const getJobs = createAsyncThunk<Response, number>(
+export const getJobs = createAsyncThunk<Response, getParams>(
     'job/get',
-    async (page, { rejectWithValue }) => {
+    async (params, { rejectWithValue }) => {
         try {
-            const response = await apiClient.get(`/api/jobs?page=${page}`)
+            let endPoint = `/api/jobs?page=${params.page}`
+            endPoint = params.query ? `${endPoint}&search=${params.query}` : endPoint
+            const response = await apiClient.get(endPoint)
             return response.data
         } catch (error: unknown) {
             if (error instanceof AxiosError) {

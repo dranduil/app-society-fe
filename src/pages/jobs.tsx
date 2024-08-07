@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "@/components/header";
@@ -8,21 +8,30 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/comp
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { AppThunkDispatch, useAppSelector } from "@/store";
 import { getJobs } from "@/store/jobs/jobsSlice";
+import { Search } from "lucide-react"
+import { Input } from "@/components/ui/input"
 
 export default function JobsPage() {
-    const { page } = useParams<{ page: string }>();
-    const navigate = useNavigate();
-    const currentPage = parseInt(page || "1", 10);
-    const jobs = useAppSelector((state) => state.jobs);
-    const dispatch = useDispatch<AppThunkDispatch>();
+    const { page } = useParams<{ page: string }>()
+    const navigate = useNavigate()
+    const currentPage = parseInt(page || "1", 10)
+    const jobs = useAppSelector((state) => state.jobs)
+    const dispatch = useDispatch<AppThunkDispatch>()
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
-        dispatch(getJobs(currentPage));
+        dispatch(getJobs({page:currentPage}));
     }, [dispatch, currentPage]);
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+        dispatch(getJobs({page:currentPage, query:search}))
+    }
 
     const handlePageChange = (page: number) => {
         navigate(`/jobs/page/${page}`);
-        dispatch(getJobs(page)); // Dispatch the action immediately when the page changes
+
+        dispatch(getJobs({page:page})); // Dispatch the action immediately when the page changes
     };
 
     return (
@@ -35,6 +44,10 @@ export default function JobsPage() {
                             <Card x-chunk="dashboard-06-chunk-0">
                                 <CardHeader>
                                     <CardTitle>Job List</CardTitle>
+                                    <div className="relative ml-auto flex-1 md:grow-0">
+                                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                                        <Input type="search" value={search} onChange={handleSearch} placeholder="Search..." className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"/>
+                                    </div>
                                     <CardDescription>
                                         Here job list of Dubai
                                     </CardDescription>
